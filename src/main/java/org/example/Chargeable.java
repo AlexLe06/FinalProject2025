@@ -1,8 +1,7 @@
 package org.example;
 
 public interface Chargeable {
-
-    default void charge() {
+    default void charge(Customer customer, double amount) {
         //TODO
     }
 }

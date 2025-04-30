@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Customer extends User {
     private double accountBalance;
+    // add orderNumber?
 
     public Customer(String name, Gender gender) {
         super(name, gender);
