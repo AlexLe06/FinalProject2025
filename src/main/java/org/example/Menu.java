@@ -15,18 +15,34 @@ public class Menu {
         this.foodsList = foodsList;
     }
 
-    public void addFood() {
+    /**
+     * adds food inside the menu
+     * @param food the input object food
+     */
+    public void addFood(Food food) {
         //TODO
     }
 
-    public void removeFood() {
+    /**
+     * remove food from menu
+     * @param food the input object food
+     */
+    public void removeFood(Food food) {
         //TODO
     }
 
+    /**
+     * displays the menu, shows all food that is inside the menu
+     */
     public void displayMenu() {
         //TODO
     }
 
+    /**
+     * searches food if it is inside the menu
+     * @param keyword the input keyword
+     * @return boolean if food is in the menu
+     */
     public static boolean searchFood(String keyword) {
         //TODO
         return false;

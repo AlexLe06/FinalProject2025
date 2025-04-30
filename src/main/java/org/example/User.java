@@ -5,16 +5,26 @@ import java.util.Objects;
 public abstract class User {
     protected String name;
     protected int id;
+    protected int age;
     protected Gender gender; //changed String to Gender
 
     private static int nextId = 1;
 
-    public User(String name, Gender gender) {
+    public User(String name) {
+        this.id = nextId++;
+        this.name = name;
+    }
+
+    public User(String name, Gender gender, int age) {
         this.id = nextId++;
         this.name = name;
         this.gender = gender;
+        this.age = age;
     }
 
+    /**
+     * displays info about user
+     */
     public abstract void displayInfo();
 
     @Override
@@ -69,6 +79,14 @@ public abstract class User {
 
     public static void setNextId(int nextId) {
         User.nextId = nextId;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public static enum Gender {

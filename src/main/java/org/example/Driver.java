@@ -7,30 +7,50 @@ import java.util.Objects;
 public class Driver extends User implements Chargeable {
     private boolean availability;
 
-    public Driver(String name, Gender gender) {
-        super(name, gender);
-        this.availability = true;
-    }
-
-    public Driver(String name, Gender gender, boolean availability) {
-        super(name, gender);
+    public Driver(String name, boolean availability) {
+        super(name);
         this.availability = availability;
     }
 
+    public Driver(String name) {
+        super(name);
+        this.availability = true;
+    }
+
+    public Driver(String name, Gender gender, int age, boolean availability) {
+        super(name, gender, age);
+        this.availability = availability;
+    }
+
+    /**
+     * allows the delivery driver to view all his orders
+     * @return list of orders driver has
+     */
     public static List<Order> viewOrder() {
         //TODO
         return new ArrayList<>();
     }
 
+    /**
+     * allows the driver to accept or refuse his orders
+     */
     public void manageOrder() {
         //TODO
     }
 
+    /**
+     * charges the customer amount
+     * @param customer the input customer
+     * @param amount the input amount
+     */
     @Override
     public void charge(Customer customer, double amount) {
         Chargeable.super.charge(customer, amount);
     }
 
+    /**
+     * displays info about driver
+     */
     @Override
     public void displayInfo() {
         //TODO

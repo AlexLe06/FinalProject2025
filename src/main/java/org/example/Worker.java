@@ -7,25 +7,41 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
 
     private static int nextId = 1;
 
-    public Worker(String name, Gender gender) {
-        super(name, gender);
+    public Worker(String name) {
+        super(name);
         this.workerId = nextId++;
     }
 
-    public Worker(String name, Gender gender, int workerId) {
-        super(name, gender);
+    public Worker(String name, int workerId) {
+        super(name);
         this.workerId = workerId;
     }
 
+    public Worker(String name, Gender gender, int age, int workerId) {
+        super(name, gender, age);
+        this.workerId = workerId;
+    }
+
+    /**
+     * charges the customer
+     * @param customer the input customer
+     * @param amount the input amount charged
+     */
     @Override
     public void charge(Customer customer, double amount) {
         Chargeable.super.charge(customer, amount);
     }
 
+    /**
+     * exports data about the order they took into a csv file and keep track of sales
+     */
     public static void fileWrite() {
         //TODO
     }
 
+    /**
+     * displays info about the worker
+     */
     @Override
     public void displayInfo() {
         //TODO
