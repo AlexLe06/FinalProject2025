@@ -6,36 +6,53 @@ import java.util.Objects;
 
 public class Driver extends User implements Chargeable {
     private boolean availability;
-
-    public Driver(String name, boolean availability) {
-        super(name);
-        this.availability = availability;
-    }
+    private List<Order> acceptedOrders;
 
     public Driver(String name) {
         super(name);
         this.availability = true;
+        this.acceptedOrders = new ArrayList<>();
     }
 
-    public Driver(String name, Gender gender, int age, boolean availability) {
+    public Driver(String name, Gender gender, int age) {
+        super(name, gender, age);
+        this.availability = true;
+        this.acceptedOrders = new ArrayList<>();
+    }
+
+    public Driver(String name, Gender gender, int age, boolean availability, List<Order> acceptedOrders) {
         super(name, gender, age);
         this.availability = availability;
+        this.acceptedOrders = acceptedOrders;
     }
 
     /**
-     * allows the delivery driver to view all his orders
-     * @return list of orders driver has
+     * add order to the accepted orders of the driver
+     * @param order the input order
      */
-    public static List<Order> viewOrder() {
+    public static void addOrders(Order order) {
         //TODO
-        return new ArrayList<>();
     }
 
     /**
-     * allows the driver to accept or refuse his orders
+     * allows the driver to view the orders he has
+     * @return a string of all orders
      */
-    public void manageOrder() {
+    public String viewOrders() {
+        String str = "";
         //TODO
+        return str;
+    }
+
+    /**
+     * manage order that driver receives
+     * @param order the input object order
+     * @param accept the input boolean accept
+     * @return boolean of order is accepted
+     */
+    public boolean manageOrder(DeliveryOrder order, boolean accept) {
+        //TODO
+        return true;
     }
 
     /**
@@ -49,11 +66,14 @@ public class Driver extends User implements Chargeable {
     }
 
     /**
-     * displays info about driver
+     * displays information about driver
+     * @return a string of information about driver
      */
     @Override
-    public void displayInfo() {
+    public String displayInfo() {
+        String str = "";
         //TODO
+        return str;
     }
 
     @Override
@@ -62,21 +82,29 @@ public class Driver extends User implements Chargeable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Driver driver = (Driver) o;
-        return availability == driver.availability;
+        return availability == driver.availability && Objects.equals(acceptedOrders, driver.acceptedOrders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), availability);
+        return Objects.hash(super.hashCode(), availability, acceptedOrders);
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "Driver{" +
                 "availability=" + availability +
-                ", gender=" + gender +
-                ", name='" + name + '\'' +
+                ", acceptedOrders=" + acceptedOrders +
                 '}';
+    }
+
+    public List<Order> getAcceptedOrders() {
+        return acceptedOrders;
+    }
+
+    public void setAcceptedOrders(List<Order> acceptedOrders) {
+        this.acceptedOrders = acceptedOrders;
     }
 
     public boolean isAvailability() {

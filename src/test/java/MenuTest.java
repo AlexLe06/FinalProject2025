@@ -1,2 +1,75 @@
+import org.example.Food;
+import org.example.Menu;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuTest {
+
+    @Test
+    public void addFoodTest() {
+        List<Food> foods = new ArrayList<>();
+        Food food1 = new Food(12, "", "", true);
+        Food food2 = new Food(12, "", "", true);
+        Food food3 = new Food(12, "", "", true);
+
+        Menu.addFood(food1);
+        Menu.addFood(food2);
+        Menu.addFood(food3);
+        Menu menu = new Menu(foods);
+
+        List<Food> expected = List.of(food1, food2, food3);
+        List<Food> result = menu.getFoodsList();
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void removeFoodTest() {
+        Food food1 = new Food(12, "", "", true);
+        Food food2 = new Food(12, "", "", true);
+        Food food3 = new Food(12, "", "", true);
+        List<Food> foods = List.of(food1, food2, food3);
+
+        Menu menu = new Menu(foods);
+        Menu.removeFood(food1);
+
+        List<Food> expected = List.of(food2, food3);
+        List<Food> result = menu.getFoodsList();
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void displayMenuTest() {
+        Food food1 = new Food(10, "Burger", "Main", true);
+        Food food2 = new Food(16, "Poutine", "Main", true);
+        Food food3 = new Food(15, "Fries", "Side", false);
+        Food food4 = new Food(20, "Coca Cola", "Drink", true);
+        List<Food> foods = List.of(food1, food2, food3, food4);
+        Menu menu = new Menu(foods);
+
+        String expected = "Burger, 10$\n" + "Poutine, 16$\n" + "Fries, 15$\n" + "Coca Cola, 20$\n";
+        String result = menu.displayMenu();
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void searchFoodTest() {
+        Food food1 = new Food(15, "Burger", "Burger", true);
+        Food food2 = new Food(22, "Cheeseburger", "Burger", true);
+        Food food3 = new Food(10, "Hotdog", "Sandwich", true);
+        List<Food> foods = List.of(food1, food2, food3);
+        Menu menu = new Menu();
+        menu.setFoodsList(foods);
+        String keyword = "burger";
+
+        List<Food> expected = List.of(food1, food2);
+        List<Food> result = Menu.searchFood(keyword);
+
+        Assertions.assertEquals(expected, result);
+    }
 }

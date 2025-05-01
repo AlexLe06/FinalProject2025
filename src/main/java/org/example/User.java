@@ -25,7 +25,7 @@ public abstract class User {
     /**
      * displays info about user
      */
-    public abstract void displayInfo();
+    public abstract String displayInfo();
 
     @Override
     public boolean equals(Object o) {

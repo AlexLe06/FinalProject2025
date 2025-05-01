@@ -24,23 +24,30 @@ public class Customer extends User {
     /**
      * takes amount that customer was charged off his account balance
      */
-    public void pay() {
+    public static void pay() {
         //TODO
     }
 
     /**
-     * allows customer to view the menu
+     * allows customer to view menu
+     * @param menu the input menu
+     * @return a string that displays menu with all available food
      */
-    public void viewMenu() {
+    public static String viewMenu(Menu menu) {
+        String str = "";
         //TODO
+        return str;
     }
 
     /**
-     * display info about customer
+     * displays information about customer
+     * @return a string with information about customer
      */
     @Override
-    public void displayInfo() {
+    public String displayInfo() {
+        String str = "";
         //TODO
+        return str;
     }
 
     @Override

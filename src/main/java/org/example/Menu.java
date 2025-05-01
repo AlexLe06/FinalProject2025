@@ -19,7 +19,7 @@ public class Menu {
      * adds food inside the menu
      * @param food the input object food
      */
-    public void addFood(Food food) {
+    public static void addFood(Food food) {
         //TODO
     }
 
@@ -27,25 +27,29 @@ public class Menu {
      * remove food from menu
      * @param food the input object food
      */
-    public void removeFood(Food food) {
+    public static void removeFood(Food food) {
         //TODO
     }
 
     /**
-     * displays the menu, shows all food that is inside the menu
+     * displays menu of food
+     * @return a string of all food on menu
      */
-    public void displayMenu() {
+    public static String displayMenu() {
+        String str = "";
         //TODO
+        return str;
     }
 
     /**
-     * searches food if it is inside the menu
+     * searches food that contains the keyword in its name
      * @param keyword the input keyword
-     * @return boolean if food is in the menu
+     * @return list of food that contains keyword from menu
      */
-    public static boolean searchFood(String keyword) {
+    public static List<Food> searchFood(String keyword) {
+        List<Food> foods = new ArrayList<>();
         //TODO
-        return false;
+        return foods;
     }
 
     @Override

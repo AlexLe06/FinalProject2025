@@ -4,70 +4,58 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order implements Comparable<Order> {
+public abstract class Order implements Comparable<Order> {
     private List<Food> foods;
     private Customer customer;
-    private String orderType;
     private int orderId;
-    private Driver driver;
     private LocalDateTime date;
+    private String orderType;
 
     private static int nextId = 1;
 
     public Order() {
         this.foods = new ArrayList<>();
         this.customer = new Customer("");
-        this.orderType = "Inside";
         this.orderId = nextId++;
         this.date = LocalDateTime.now();
+        this.orderType = "";
     }
 
-    public Order(List<Food> foods, Customer customer, String orderType, int orderId, Driver driver, LocalDateTime date) {
+    public Order(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
         this.foods = foods;
         this.customer = customer;
-        this.orderType = orderType;
         this.orderId = orderId;
-        this.driver = driver;
         this.date = date;
+        this.orderType = orderType;
     }
 
     /**
      * adds food inside order food list
      * @param food the input object food
      */
-    public static void addFood(Food food) {
-        //TODO
-    }
+    public abstract void addFood(Food food);
 
     /**
      * removes food from order food list
      * @param food the input object food
      */
-    public static void removeFood(Food food) {
-        //TODO
-    }
+    public abstract void removeFood(Food food);
 
     /**
      * exports orders into csv file and info
      */
-    public static void fileWriteOrder() {
-        //TODO
-    }
+    public abstract void fileWriteOrder();
 
     /**
      * calculates total of the order (no tax)
      * @param foods the input food list
      * @return the total price of the order
      */
-    public static double calcPrice(List<Food> foods) {
-        double price = 0;
-        //TODO
-        return price;
-    }
+    public abstract double calcPrice(List<Food> foods);
 
     @Override
     public int compareTo(Order o) {
-        return 0;
+        return this.orderId - o.orderId;
     }
 
     public List<Food> getFoods() {
@@ -76,14 +64,6 @@ public class Order implements Comparable<Order> {
 
     public void setFoods(List<Food> foods) {
         this.foods = foods;
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
     }
 
     public int getOrderId() {
@@ -102,14 +82,6 @@ public class Order implements Comparable<Order> {
         this.date = date;
     }
 
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -124,5 +96,13 @@ public class Order implements Comparable<Order> {
 
     public static void setNextId(int nextId) {
         Order.nextId = nextId;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 }

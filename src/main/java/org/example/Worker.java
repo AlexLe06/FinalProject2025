@@ -33,6 +33,15 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
     }
 
     /**
+     * refund customer in case of a mistake
+     * @param customer the input customer
+     * @param amount the input amount to refund
+     */
+    public static void refund(Customer customer, double amount) {
+        //TODO
+    }
+
+    /**
      * exports data about the order they took into a csv file and keep track of sales
      */
     public static void fileWrite() {
@@ -40,11 +49,14 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
     }
 
     /**
-     * displays info about the worker
+     * displays information about worker
+     * @return string with information about worker
      */
     @Override
-    public void displayInfo() {
+    public String displayInfo() {
+        String str = "";
         //TODO
+        return str;
     }
 
     @Override
