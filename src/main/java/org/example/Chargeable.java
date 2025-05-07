@@ -8,6 +8,6 @@ public interface Chargeable {
      * @param amount the input amount
      */
     default void charge(Customer customer, double amount) {
-        //TODO
+        Customer.pay(customer, amount);
     }
 }

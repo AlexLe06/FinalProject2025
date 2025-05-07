@@ -19,26 +19,32 @@ public class Menu {
      * adds food inside the menu
      * @param food the input object food
      */
-    public static void addFood(Food food) {
-        //TODO
+    public void addFood(Food food) {
+        getFoodsList().add(food);
     }
 
     /**
      * remove food from menu
      * @param food the input object food
      */
-    public static void removeFood(Food food) {
-        //TODO
+    public void removeFood(Food food) {
+        getFoodsList().remove(food);
     }
 
     /**
-     * displays menu of food
-     * @return a string of all food on menu
+     * get string of the menu
+     * @param menu the input menu
+     * @return
      */
-    public static String displayMenu() {
-        String str = "";
-        //TODO
-        return str;
+    public static String displayMenu(Menu menu) {
+        StringBuilder str = new StringBuilder();
+
+        for (Food food : menu.getFoodsList()) {
+            str.append(food.getName()).append(", ");
+            str.append(food.getPrice() + "$\n");
+        }
+
+        return str.toString();
     }
 
     /**

@@ -26,7 +26,7 @@ public class DeliveryOrder extends Order {
      * @param driver the input driver
      */
     public static void reassignDriver(DeliveryOrder order, Driver driver) {
-        //TODO
+        order.setDriver(driver);
     }
 
     /**
@@ -35,7 +35,7 @@ public class DeliveryOrder extends Order {
      */
     @Override
     public void addFood(Food food) {
-        //TODO
+        getFoods().add(food);
     }
 
     /**
@@ -44,7 +44,7 @@ public class DeliveryOrder extends Order {
      */
     @Override
     public void removeFood(Food food) {
-        //TODO
+        getFoods().remove(food);
     }
 
     /**
@@ -63,7 +63,11 @@ public class DeliveryOrder extends Order {
     @Override
     public double calcPrice(List<Food> foods) {
         double price = 0;
-        //TODO
+
+        for (Food food : foods) {
+            price += food.getPrice();
+        }
+
         return price;
     }
 

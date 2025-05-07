@@ -23,7 +23,7 @@ public class InRestaurantOrder extends Order{
      */
     @Override
     public void addFood(Food food) {
-        //TODO
+            getFoods().add(food);
     }
 
     /**
@@ -32,8 +32,13 @@ public class InRestaurantOrder extends Order{
      */
     @Override
     public void removeFood(Food food) {
-        //TODO
+        if (getFoods().contains(food)) {
+            getFoods().remove(food);
+        } else {
+            System.out.println("The order doesn't have " + food.getName());;
+        }
     }
+
 
     /**
      * exports orders into csv file and info
@@ -52,7 +57,9 @@ public class InRestaurantOrder extends Order{
     public double calcPrice(List<Food> foods) {
         double price = 0;
 
-        //TODO
+        for (Food food : foods) {
+            price += food.getPrice();
+        }
 
         return price;
     }

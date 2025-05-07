@@ -22,10 +22,13 @@ public class Customer extends User {
     }
 
     /**
-     * takes amount that customer was charged off his account balance
+     * makes customer pay amount charged
+     * @param customer the input customer
+     * @param amount the input amount that is charged
      */
-    public static void pay() {
-        //TODO
+    public static void pay(Customer customer, double amount) {
+        double newBalance = customer.getAccountBalance() - amount;
+        customer.setAccountBalance(newBalance);
     }
 
     /**

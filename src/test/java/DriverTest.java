@@ -90,7 +90,7 @@ public class DriverTest {
         driver.addOrders(order2);
 
         List<Order> expected = List.of(order1, order2);
-        List<Order> result = driver.getAcceptedOrders();
+        List<Order> result = driver.getOrders();
 
         Assertions.assertEquals(expected, result);
     }

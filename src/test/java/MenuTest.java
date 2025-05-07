@@ -15,10 +15,11 @@ public class MenuTest {
         Food food2 = new Food(12, "", "", true);
         Food food3 = new Food(12, "", "", true);
 
-        Menu.addFood(food1);
-        Menu.addFood(food2);
-        Menu.addFood(food3);
         Menu menu = new Menu(foods);
+
+        menu.addFood(food1);
+        menu.addFood(food2);
+        menu.addFood(food3);
 
         List<Food> expected = List.of(food1, food2, food3);
         List<Food> result = menu.getFoodsList();
@@ -34,7 +35,7 @@ public class MenuTest {
         List<Food> foods = List.of(food1, food2, food3);
 
         Menu menu = new Menu(foods);
-        Menu.removeFood(food1);
+        menu.removeFood(food1);
 
         List<Food> expected = List.of(food2, food3);
         List<Food> result = menu.getFoodsList();
@@ -52,7 +53,7 @@ public class MenuTest {
         Menu menu = new Menu(foods);
 
         String expected = "Burger, 10$\n" + "Poutine, 16$\n" + "Fries, 15$\n" + "Coca Cola, 20$\n";
-        String result = menu.displayMenu();
+        String result = Menu.displayMenu(menu);
 
         Assertions.assertEquals(expected, result);
     }

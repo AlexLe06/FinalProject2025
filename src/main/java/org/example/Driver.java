@@ -6,32 +6,32 @@ import java.util.Objects;
 
 public class Driver extends User implements Chargeable {
     private boolean availability;
-    private List<Order> acceptedOrders;
+    private List<Order> orders;
 
     public Driver(String name) {
         super(name);
         this.availability = true;
-        this.acceptedOrders = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
     public Driver(String name, Gender gender, int age) {
         super(name, gender, age);
         this.availability = true;
-        this.acceptedOrders = new ArrayList<>();
+        this.orders = new ArrayList<>();
     }
 
-    public Driver(String name, Gender gender, int age, boolean availability, List<Order> acceptedOrders) {
+    public Driver(String name, Gender gender, int age, boolean availability, List<Order> orders) {
         super(name, gender, age);
         this.availability = availability;
-        this.acceptedOrders = acceptedOrders;
+        this.orders = orders;
     }
 
     /**
      * add order to the accepted orders of the driver
      * @param order the input order
      */
-    public static void addOrders(Order order) {
-        //TODO
+    public void addOrders(Order order) {
+        getOrders().add(order);
     }
 
     /**
@@ -62,7 +62,7 @@ public class Driver extends User implements Chargeable {
      */
     @Override
     public void charge(Customer customer, double amount) {
-        Chargeable.super.charge(customer, amount);
+        Customer.pay(customer, amount);
     }
 
     /**
@@ -82,12 +82,12 @@ public class Driver extends User implements Chargeable {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Driver driver = (Driver) o;
-        return availability == driver.availability && Objects.equals(acceptedOrders, driver.acceptedOrders);
+        return availability == driver.availability && Objects.equals(orders, driver.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), availability, acceptedOrders);
+        return Objects.hash(super.hashCode(), availability, orders);
     }
 
     @Override
@@ -95,16 +95,16 @@ public class Driver extends User implements Chargeable {
     toString() {
         return "Driver{" +
                 "availability=" + availability +
-                ", acceptedOrders=" + acceptedOrders +
+                ", acceptedOrders=" + orders +
                 '}';
     }
 
-    public List<Order> getAcceptedOrders() {
-        return acceptedOrders;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setAcceptedOrders(List<Order> acceptedOrders) {
-        this.acceptedOrders = acceptedOrders;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public boolean isAvailability() {

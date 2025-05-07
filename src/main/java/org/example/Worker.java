@@ -29,7 +29,7 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
      */
     @Override
     public void charge(Customer customer, double amount) {
-        Chargeable.super.charge(customer, amount);
+        Customer.pay(customer, amount);
     }
 
     /**
