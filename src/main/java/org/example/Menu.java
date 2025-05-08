@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,17 @@ public class Menu {
      * @param food the input object food
      */
     public void addFood(Food food) {
+        if (food == null) {
+            throw new IllegalArgumentException("Food cannot be null");
+        }
+
+        for (Food food1 : getFoodsList()) {
+            if (food1.getName().equalsIgnoreCase(food.getName())) {
+                System.out.println("Food item already exists in menu: " + food.getName());
+                return;
+            }
+        }
+
         getFoodsList().add(food);
     }
 
@@ -28,34 +40,85 @@ public class Menu {
      * @param food the input object food
      */
     public void removeFood(Food food) {
+        if (food == null) {
+            throw new IllegalArgumentException("Food cannot be null");
+        }
+
+        if (!getFoodsList().contains(food)) {
+            System.out.println("Cannot remove non-existent food: " + food.getName());
+            return;
+        }
+
         getFoodsList().remove(food);
     }
 
     /**
      * get string of the menu
      * @param menu the input menu
-     * @return
+     * @return string of menu
      */
-    public static String displayMenu(Menu menu) {
+    public static String displayMenu(Menu menu) { //try to change so that it displays in category already
+        StringBuilder str = new StringBuilder();
+
+            for (Food food : menu.getFoodsList()) {
+                    str.append(food.getName()).append(", ");
+                    str.append(food.getPrice() + "$\n");
+            }
+
+        return str.toString();
+    }
+
+    /**
+     * get string of the menu
+     * @param menu the input menu
+     * @return string of menu
+     */
+    public static String displayMenuCustomer(Menu menu) { //junit
         StringBuilder str = new StringBuilder();
 
         for (Food food : menu.getFoodsList()) {
-            str.append(food.getName()).append(", ");
-            str.append(food.getPrice() + "$\n");
+            if (food.isAvailable()) {
+                str.append(food.getName()).append(", ");
+                str.append(food.getPrice() + "$\n");
+            }
         }
 
         return str.toString();
     }
+
+//    /**
+//     * get string of the menu
+//     * @param menu the input menu
+//     * @return
+//     */
+//    public static String displayMenuCategory(Menu menu, String keyword) {
+//        StringBuilder str = new StringBuilder();
+//        String titleCaseKeyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
+//
+//        str.append(titleCaseKeyword + ":\n");
+//        for (Food food : menu.getFoodsList()) {
+//            if (food.getCategory().equalsIgnoreCase(keyword)) {
+//                str.append(food.getName() + ", ");
+//                str.append(food.getPrice() + "$\n");
+//            }
+//        }
+//
+//        return str.toString();
+//    }
 
     /**
      * searches food that contains the keyword in its name
      * @param keyword the input keyword
      * @return list of food that contains keyword from menu
      */
-    public static List<Food> searchFood(String keyword) {
-        List<Food> foods = new ArrayList<>();
-        //TODO
-        return foods;
+    public List<Food> searchFood(String keyword) {
+        if (keyword == null) {
+            return getFoodsList();
+        }
+
+        return getFoodsList().stream()
+                .filter(food -> food.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
     }
 
     @Override

@@ -1,10 +1,15 @@
 package org.example;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Customer extends User {
     private double accountBalance;
     // add orderNumber?
+
+    private List<Order> orders;
+    private Order tempOrder;
 
     public Customer(String name) {
         super(name);
@@ -23,12 +28,30 @@ public class Customer extends User {
 
     /**
      * makes customer pay amount charged
-     * @param customer the input customer
-     * @param amount the input amount that is charged
      */
-    public static void pay(Customer customer, double amount) {
-        double newBalance = customer.getAccountBalance() - amount;
-        customer.setAccountBalance(newBalance);
+    public void pay() {
+        //TODO: update the order time
+        tempOrder.setDate(LocalDateTime.now());
+
+        // TODO: add tempOrder to the orders in customer and the restaurant
+        orders.add(tempOrder);
+        Restaurant.orders.add(tempOrder);
+
+        // TODO: call the logData in the Restaurant class
+
+        // cooking
+
+        // delivering
+
+        // TODO: validation, read the price from the tempOrder
+        accountBalance -= tempOrder.calcPrice(tempOrder.getFoods());
+
+    }
+
+    public void createOrder(boolean isInRestaurant) {
+        tempOrder = isInRestaurant
+                ? new InRestaurantOrder(this)
+                : new DeliveryOrder(this);
     }
 
     /**
@@ -37,9 +60,7 @@ public class Customer extends User {
      * @return a string that displays menu with all available food
      */
     public static String viewMenu(Menu menu) {
-        String str = "";
-        //TODO
-        return str;
+        return Menu.displayMenuCustomer(menu);
     }
 
     /**
@@ -80,5 +101,21 @@ public class Customer extends User {
 
     public void setAccountBalance(double accountBalance) {
         this.accountBalance = accountBalance;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Order getTempOrder() {
+        return tempOrder;
+    }
+
+    public void setTempOrder(Order tempOrder) {
+        this.tempOrder = tempOrder;
     }
 }

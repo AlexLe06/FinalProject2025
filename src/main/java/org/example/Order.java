@@ -10,15 +10,17 @@ public abstract class Order implements Comparable<Order> {
     private int orderId;
     private LocalDateTime date;
     private String orderType;
+    private Orderable operator;
 
     private static int nextId = 1;
 
-    public Order() {
+    public Order(Orderable operator) {
         this.foods = new ArrayList<>();
         this.customer = new Customer("");
         this.orderId = nextId++;
         this.date = LocalDateTime.now();
         this.orderType = "";
+        this.operator = operator;
     }
 
     public Order(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
@@ -40,11 +42,6 @@ public abstract class Order implements Comparable<Order> {
      * @param food the input object food
      */
     public abstract void removeFood(Food food);
-
-    /**
-     * exports orders into csv file and info
-     */
-    public abstract void fileWriteOrder();
 
     /**
      * calculates total of the order (no tax)

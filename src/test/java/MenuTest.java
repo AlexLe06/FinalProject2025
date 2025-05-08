@@ -59,6 +59,11 @@ public class MenuTest {
     }
 
     @Test
+    public void displayMenuCustomerTest() {
+        //TODO
+    }
+
+    @Test
     public void searchFoodTest() {
         Food food1 = new Food(15, "Burger", "Burger", true);
         Food food2 = new Food(22, "Cheeseburger", "Burger", true);
@@ -69,7 +74,7 @@ public class MenuTest {
         String keyword = "burger";
 
         List<Food> expected = List.of(food1, food2);
-        List<Food> result = Menu.searchFood(keyword);
+        List<Food> result = menu.searchFood(keyword);
 
         Assertions.assertEquals(expected, result);
     }

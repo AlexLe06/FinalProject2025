@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Objects;
 
-public class Worker extends User implements Comparable<Worker>, Chargeable{
+public class Worker extends User implements Comparable<Worker>, Orderable {
     private int workerId;
 
     private static int nextId = 1;
@@ -12,24 +12,22 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
         this.workerId = nextId++;
     }
 
-    public Worker(String name, int workerId) {
-        super(name);
-        this.workerId = workerId;
+    public Worker(String name, int age, Gender gender) {
+        super(name, gender, age);
+        this.workerId = nextId++;
     }
 
-    public Worker(String name, Gender gender, int age, int workerId) {
+    public Worker(String name, int age, Gender gender, int workerId) {
         super(name, gender, age);
         this.workerId = workerId;
     }
 
     /**
      * charges the customer
-     * @param customer the input customer
-     * @param amount the input amount charged
      */
     @Override
-    public void charge(Customer customer, double amount) {
-        Customer.pay(customer, amount);
+    public void charge() {
+        Customer.pay();
     }
 
     /**
@@ -37,15 +35,24 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
      * @param customer the input customer
      * @param amount the input amount to refund
      */
-    public static void refund(Customer customer, double amount) {
-        //TODO
+    public void refund(Customer customer) {
+        double customerNewBalance = customer.getAccountBalance()
+                + customer.getTempOrder().calcPrice(customer.getTempOrder().getFoods());
+        customer.setAccountBalance(customerNewBalance);
+
+        //TODO: call the logRefund in Restaurant class,m, passing true
     }
 
-    /**
-     * exports data about the order they took into a csv file and keep track of sales
-     */
-    public static void fileWrite() {
-        //TODO
+    public void createOrder(boolean isInRestaurant) {
+
+    }
+
+    public void addFood() {
+        // TODO: call the add food from the order class
+    }
+
+    public void removeFood() {
+        // TODO: call the remove food from the order class
     }
 
     /**
@@ -54,9 +61,7 @@ public class Worker extends User implements Comparable<Worker>, Chargeable{
      */
     @Override
     public String displayInfo() {
-        String str = "";
-        //TODO
-        return str;
+        return String.format("%s, %s, %s, %s", getName(), getAge(), getGender(), getWorkerId());
     }
 
     @Override

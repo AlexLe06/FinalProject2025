@@ -9,7 +9,7 @@ public class InRestaurantOrder extends Order{
 
     public InRestaurantOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
         super(foods, customer, orderId, date, orderType);
-        this.worker = new Worker("");
+        this.worker = null;
     }
 
     public InRestaurantOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType, Worker worker) {
@@ -23,7 +23,11 @@ public class InRestaurantOrder extends Order{
      */
     @Override
     public void addFood(Food food) {
-            getFoods().add(food);
+        if (food == null) {
+            throw new IllegalArgumentException("Food cannot be null");
+        }
+
+        getFoods().add(food);
     }
 
     /**
@@ -35,17 +39,8 @@ public class InRestaurantOrder extends Order{
         if (getFoods().contains(food)) {
             getFoods().remove(food);
         } else {
-            System.out.println("The order doesn't have " + food.getName());;
+            System.out.println("The order doesn't have " + food.getName());
         }
-    }
-
-
-    /**
-     * exports orders into csv file and info
-     */
-    @Override
-    public void fileWriteOrder() {
-        //TODO
     }
 
     /**

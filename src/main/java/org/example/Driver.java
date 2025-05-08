@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Driver extends User implements Chargeable {
+public class Driver extends User implements Orderable {
     private boolean availability;
     private List<Order> orders;
 
@@ -50,19 +50,17 @@ public class Driver extends User implements Chargeable {
      * @param accept the input boolean accept
      * @return boolean of order is accepted
      */
-    public boolean manageOrder(DeliveryOrder order, boolean accept) {
+    public boolean completeOrder(DeliveryOrder order, boolean accept) {
         //TODO
         return true;
     }
 
     /**
      * charges the customer amount
-     * @param customer the input customer
-     * @param amount the input amount
      */
     @Override
-    public void charge(Customer customer, double amount) {
-        Customer.pay(customer, amount);
+    public void charge() {
+        Customer.pay();
     }
 
     /**
@@ -113,5 +111,9 @@ public class Driver extends User implements Chargeable {
 
     public void setAvailability(boolean availability) {
         this.availability = availability;
+    }
+
+    public static enum OrderStatus {
+        DELIVERING, COMPLETED
     }
 }
