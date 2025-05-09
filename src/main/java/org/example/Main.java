@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         User worker = new Worker("Bob", 23, User.Gender.MALE);
         User worker1 = new Worker("Paul", 19, User.Gender.MALE);
-        User customer = new Customer("Alex", 1000);
+        Customer customer = new Customer("Alex", 1000);
 
         Menu menu = new Menu();
 
@@ -26,7 +26,7 @@ public class Main {
 
 //        worker.charge(customer, 200);
 //        System.out.println(customer.getAccountBalance());
-        System.out.println(Customer.viewMenu(menu));
+        customer.viewMenu(menu);
 
         System.out.println(worker.displayInfo());
         System.out.println(worker1.displayInfo());

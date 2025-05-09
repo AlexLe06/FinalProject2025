@@ -53,7 +53,7 @@ public class Customer extends User implements Orderable{
     }
 
     @Override
-    public void addFood(Food food) {
+    public void addFoodOrder(Food food) {
         if (tempOrder == null) {
             throw new IllegalStateException("Order cannot be null, it needs to be created first before adding food.");
         }
@@ -64,7 +64,7 @@ public class Customer extends User implements Orderable{
     }
 
     @Override
-    public void removeFood(Food food) {
+    public void removeFoodOrder(Food food) {
         if (tempOrder == null) {
             throw new IllegalStateException("Order cannot be null, it needs to be created first before removing food.");
         }
@@ -89,7 +89,7 @@ public class Customer extends User implements Orderable{
      */
     @Override
     public String displayInfo() {
-        return String.format("%s, %s, %s", getName(), getAge(), getGender());
+        return String.format("Name: %s, Age: %s, Gender: %s, Balance: %.2f$", getName(), getAge(), getGender(), getAccountBalance());
     }
 
     @Override

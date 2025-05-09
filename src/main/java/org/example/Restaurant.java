@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,12 +13,8 @@ import java.util.stream.Collectors;
 public class Restaurant {
     public static final String orderFile = "src/main/resources/order.csv";
 
-//    public static final String customersFile = "src/main/resources/logs.csv";
 
     public static List<Order> orders = loadOrders(orderFile);
-
-
-//    public static List<Customer> customers = new ArrayList<>();
 
     //Reading
     private static List<Order> loadOrders(String path) {
@@ -29,7 +26,18 @@ public class Restaurant {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
 
+                String[] foodNames = parts[0].split("\\|");
+                List<Food> foods = new ArrayList<>();
+                for (String foodName : foodNames) {
+                    foods.add(new Food(foodName)); //wrong because food dont have prices
+                }
 
+                String customerName = parts[1];
+                int orderId = Integer.parseInt(parts[2]);
+                LocalDateTime date = LocalDateTime.parse(parts[3]);
+                String orderType = parts[4];
+
+                orders.add(new InRestaurantOrder(foods, customerName, orderId, date, orderType));
             }
 
         } catch (FileNotFoundException e) {
@@ -53,19 +61,19 @@ public class Restaurant {
                 if (!isRefund) {
                     fw.write(order.getFoods().stream()
                             .map(Food::getName)
-                            .collect(Collectors.joining(" | ")));
+                            .collect(Collectors.joining("|")) + ",");
                     fw.write(order.getCustomerName() + ",");
-                    fw.write(order.getOrderId() + ", ");
-                    fw.write(order.getOrderId() + ", ");
-                    fw.write(order.getDate() + ", ");
+                    fw.write(order.getOrderId() + ",");
+                    fw.write(order.getDate() + ",");
                     fw.write(order.getOrderType() + "\n");
                 } else {
-                    fw.write(order.getFoods() + ",");
+                    fw.write(order.getFoods().stream()
+                            .map(Food::getName)
+                            .collect(Collectors.joining("|")) + ",");
                     fw.write(order.getCustomerName() + ",");
-                    fw.write(order.getOrderId() + ", ");
-                    fw.write(order.getOrderId() + ", ");
-                    fw.write(order.getDate() + ", ");
-                    fw.write(order.getOrderType() + ", ");
+                    fw.write(order.getOrderId() + ",");
+                    fw.write(order.getDate() + ",");
+                    fw.write(order.getOrderType() + ",");
                     fw.write("REFUND\n");
                 }
             }

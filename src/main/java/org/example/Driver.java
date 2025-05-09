@@ -3,6 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Driver extends User {
     private boolean availability;
@@ -36,13 +37,22 @@ public class Driver extends User {
 
     /**
      * allows the driver to view the orders he has that are pending
+     *
      * @return a string of all orders
      */
-    public String viewOrders() {
+    public StringBuilder viewOrders() {
         StringBuilder str = new StringBuilder();
-        //TODO
-        str.append(Restaurant.orders);
-        return str.toString();
+
+        for (Order order : orders) {
+            str.append("Order " + order.getOrderId());
+            str.append(order.getFoods().stream()
+                    .map(Food::getName)
+                    .collect(Collectors.joining(" | ")) + "\n");
+            str.append(order.getCustomerName() + "\n");
+            str.append(order.calcPrice(order.getFoods())+ "\n");
+        }
+
+        return str;
     }
 
     /**
@@ -61,7 +71,7 @@ public class Driver extends User {
      */
     @Override
     public String displayInfo() {
-        return String.format("%s, %s, %s, %s", getName(), getAge(), getGender());
+        return String.format("Name: %s, Gender: %s, Age: %s", getName(), getGender(), getAge());
     }
 
     @Override

@@ -62,7 +62,7 @@ public class Menu {
 
             for (Food food : menu.getFoodsList()) {
                     str.append(food.getName()).append(", ");
-                    str.append(food.getPrice() + "$\n");
+                    str.append(String.format("%.2f$\n", food.getPrice()));
             }
 
         return str.toString();
@@ -79,32 +79,32 @@ public class Menu {
         for (Food food : menu.getFoodsList()) {
             if (food.isAvailable()) {
                 str.append(food.getName()).append(", ");
-                str.append(food.getPrice() + "$\n");
+                str.append(String.format("%.2f$\n", food.getPrice()));
             }
         }
 
         return str.toString();
     }
 
-//    /**
-//     * get string of the menu
-//     * @param menu the input menu
-//     * @return
-//     */
-//    public static String displayMenuCategory(Menu menu, String keyword) {
-//        StringBuilder str = new StringBuilder();
-//        String titleCaseKeyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
-//
-//        str.append(titleCaseKeyword + ":\n");
-//        for (Food food : menu.getFoodsList()) {
-//            if (food.getCategory().equalsIgnoreCase(keyword)) {
-//                str.append(food.getName() + ", ");
-//                str.append(food.getPrice() + "$\n");
-//            }
-//        }
-//
-//        return str.toString();
-//    }
+    /**
+     * get string of the menu
+     * @param menu the input menu
+     * @return
+     */
+    public String displayMenuCategory(Menu menu, String keyword) {
+        StringBuilder str = new StringBuilder();
+        String titleCaseKeyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
+
+        str.append(titleCaseKeyword + ":\n");
+        for (Food food : menu.getFoodsList()) {
+            if (food.getCategory().equalsIgnoreCase(keyword)) {
+                str.append(food.getName() + ", ");
+                str.append(food.getPrice() + "$\n");
+            }
+        }
+
+        return str.toString();
+    }
 
     /**
      * searches food that contains the keyword in its name

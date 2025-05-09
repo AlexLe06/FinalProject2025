@@ -16,6 +16,13 @@ public class Food {
         this.isAvailable = true;
     }
 
+    public Food(String name) {
+        this.price = 0;
+        this.name = name;
+        this.category = "";
+        this.isAvailable = true;
+    }
+
     public Food(double price, String name, String category, boolean isAvailable) {
         this.price = price;
         this.name = name;

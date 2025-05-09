@@ -28,7 +28,6 @@ public class Worker extends User implements Comparable<Worker>, Orderable {
     /**
      * refund customer in case of a mistake
      * @param customer the input customer
-//     * @param amount the input amount to refund
      */
     public void refund(Customer customer) {
         double customerNewBalance = customer.getAccountBalance()
@@ -41,32 +40,20 @@ public class Worker extends User implements Comparable<Worker>, Orderable {
     @Override
     public void createOrder(boolean isInRestaurant) {
         if (isInRestaurant) {
-           this.tempOrder = new InRestaurantOrder(this);
+            tempOrder = new InRestaurantOrder(this);
         }
 
-        //todo add in restaurant
+        Restaurant.export(false);
     }
 
     @Override
-    public void addFood(Food food) {
-        if (tempOrder == null) {
-            throw new IllegalStateException("Order cannot be null, it needs to be created first before adding food.");
-        }
-        if (food == null) {
-            throw new IllegalStateException("Food cannot be null.");
-        }
-        tempOrder.getFoods().add(food);
+    public void addFoodOrder(Food food) {
+        Orderable.super.addFoodOrder(food);
     }
 
     @Override
-    public void removeFood(Food food) {
-        if (tempOrder == null) {
-            throw new IllegalStateException("Order cannot be null, it needs to be created first before removing food.");
-        }
-        if (food == null) {
-            throw new IllegalStateException("Food cannot be null.");
-        }
-        tempOrder.getFoods().remove(food);
+    public void removeFoodOrder(Food food) {
+        Orderable.super.removeFoodOrder(food);
     }
 
     /**

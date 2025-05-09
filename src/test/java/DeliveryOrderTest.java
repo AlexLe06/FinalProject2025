@@ -10,7 +10,6 @@ public class DeliveryOrderTest {
 
     @Test
     public void addFoodTest() {
-        Customer customer = new Customer("", 1000);
         Food food = new Food(500, "la", "", true);
         Food food1 = new Food(510, "ba", "", true);
         Food food2 = new Food(510, "ca", "", true);

@@ -19,8 +19,7 @@ public class WorkerTest {
     @Test
     public void refundTest() {
         Customer customer = new Customer("Bob", 1000);
-        User worker = new Worker("Bob",  18, User.Gender.MALE,1);
-        double amount = 200;
+        Worker worker = new Worker("Bob",  18, User.Gender.MALE,1);
 
         worker.refund(customer);
 
@@ -29,4 +28,10 @@ public class WorkerTest {
 
         Assertions.assertEquals(expected, result);
     }
+
+    @Test
+    public void createOrderTest() {
+
+    }
+
 }

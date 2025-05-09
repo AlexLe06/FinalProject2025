@@ -48,7 +48,6 @@ public class CustomerTest {
 
     @Test
     public void viewMenuTest() {
-        User customer = new Customer("Bob", User.Gender.MALE, 14, 542);
         Food food1 = new Food(10, "Burger", "Main", true);
         Food food2 = new Food(16, "Poutine", "Main", true);
         Food food3 = new Food(15, "Fries", "Side", false);
@@ -56,9 +55,9 @@ public class CustomerTest {
         List<Food> foods = List.of(food1, food2, food3, food4);
         Menu menu = new Menu(foods);
 
-        String expected = "Burger, 10$\n"
-                + "Poutine, 16$\n"
-                + "Coca Cola, 20$\n";
+        String expected = "Burger, 10.00$\n"
+                + "Poutine, 16.00$\n"
+                + "Coca Cola, 20.00$\n";
 
         String result = Customer.viewMenu(menu);
 
@@ -68,9 +67,14 @@ public class CustomerTest {
     @Test
     public void displayInfoTest() {
         User customer = new Customer("Bob", User.Gender.MALE, 14, 542);
-        String expected = "Name: Bob, Gender: Male, Age: 14, Balance: 542";
+        String expected = "Name: Bob, Age: 14, Gender: MALE, Balance: 542.00$";
         String result = customer.displayInfo();
 
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void createOrderTest() {
+
     }
 }
