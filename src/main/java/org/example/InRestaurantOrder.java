@@ -4,16 +4,26 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class InRestaurantOrder extends Order{
+public class InRestaurantOrder extends Order {
     private Worker worker;
 
-    public InRestaurantOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
+    public InRestaurantOrder(Orderable operator) {
+        super(operator);
+        setOrderType("InRestaurant");
+    }
+
+    public InRestaurantOrder(List<Food> foods, String customer, int orderId, LocalDateTime date, String orderType) {
         super(foods, customer, orderId, date, orderType);
         this.worker = null;
     }
 
-    public InRestaurantOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType, Worker worker) {
-        super(foods, customer, orderId, date, orderType);
+    public InRestaurantOrder(List<Food> foods, String customer, int orderId, LocalDateTime date, String orderType, Orderable operator) {
+        super(foods, customer, orderId, date, orderType, operator);
+        this.worker = null;
+    }
+
+    public InRestaurantOrder(List<Food> foods, String customer, int orderId, LocalDateTime date, String orderType, Worker worker, Orderable operator) {
+        super(foods, customer, orderId, date, orderType, operator);
         this.worker = worker;
     }
 

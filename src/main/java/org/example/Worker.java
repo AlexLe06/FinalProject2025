@@ -1,9 +1,12 @@
 package org.example;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Worker extends User implements Comparable<Worker>, Orderable {
     private int workerId;
+    private Order tempOrder;
 
     private static int nextId = 1;
 
@@ -23,36 +26,47 @@ public class Worker extends User implements Comparable<Worker>, Orderable {
     }
 
     /**
-     * charges the customer
-     */
-    @Override
-    public void charge() {
-        Customer.pay();
-    }
-
-    /**
      * refund customer in case of a mistake
      * @param customer the input customer
-     * @param amount the input amount to refund
+//     * @param amount the input amount to refund
      */
     public void refund(Customer customer) {
         double customerNewBalance = customer.getAccountBalance()
                 + customer.getTempOrder().calcPrice(customer.getTempOrder().getFoods());
         customer.setAccountBalance(customerNewBalance);
 
-        //TODO: call the logRefund in Restaurant class,m, passing true
+        Restaurant.export(true);
     }
 
+    @Override
     public void createOrder(boolean isInRestaurant) {
+        if (isInRestaurant) {
+           this.tempOrder = new InRestaurantOrder(this);
+        }
 
+        //todo add in restaurant
     }
 
-    public void addFood() {
-        // TODO: call the add food from the order class
+    @Override
+    public void addFood(Food food) {
+        if (tempOrder == null) {
+            throw new IllegalStateException("Order cannot be null, it needs to be created first before adding food.");
+        }
+        if (food == null) {
+            throw new IllegalStateException("Food cannot be null.");
+        }
+        tempOrder.getFoods().add(food);
     }
 
-    public void removeFood() {
-        // TODO: call the remove food from the order class
+    @Override
+    public void removeFood(Food food) {
+        if (tempOrder == null) {
+            throw new IllegalStateException("Order cannot be null, it needs to be created first before removing food.");
+        }
+        if (food == null) {
+            throw new IllegalStateException("Food cannot be null.");
+        }
+        tempOrder.getFoods().remove(food);
     }
 
     /**
@@ -107,5 +121,13 @@ public class Worker extends User implements Comparable<Worker>, Orderable {
 
     public void setWorkerId(int workerId) {
         this.workerId = workerId;
+    }
+
+    public Order getTempOrder() {
+        return tempOrder;
+    }
+
+    public void setTempOrder(Order tempOrder) {
+        this.tempOrder = tempOrder;
     }
 }

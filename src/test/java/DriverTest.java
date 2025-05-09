@@ -18,22 +18,8 @@ public class DriverTest {
     }
 
     @Test
-    public void chargeTest() {
-        Driver driver = new Driver("Dylan");
-        Customer customer = new Customer("Bob", 1000);
-        double amount = 200;
-
-        driver.charge(customer, amount);
-
-        double expected = 800;
-        double result = customer.getAccountBalance();
-
-        Assertions.assertEquals(expected, result);
-    }
-
-    @Test
     public void manageOrderTestPending() {
-        Order order1 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(),
+        Order order1 = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(),
                 "", new Driver("Bob"), DeliveryOrder.OrderStatus.PENDING);
 
         Assertions.assertEquals(DeliveryOrder.OrderStatus.PENDING, ((DeliveryOrder) order1).getStatus());
@@ -41,7 +27,7 @@ public class DriverTest {
 
     @Test
     public void manageOrderTest_Accept() {
-        Order order1 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(),
+        Order order1 = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(),
                 "", new Driver("Bob"), DeliveryOrder.OrderStatus.PENDING);
 
         ((DeliveryOrder) order1).setStatus(DeliveryOrder.OrderStatus.ACCEPTED);
@@ -50,7 +36,7 @@ public class DriverTest {
 
     @Test
     public void manageOrderTest_Negative() {
-        Order order1 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(),
+        Order order1 = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(),
                 "", new Driver("Bob"), DeliveryOrder.OrderStatus.PENDING);
 
         ((DeliveryOrder) order1).setStatus(DeliveryOrder.OrderStatus.REFUSED);
@@ -60,15 +46,15 @@ public class DriverTest {
     @Test
     public void viewOrdersTest() {
         Driver driver = new Driver("Bob");
-        Order order1 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(),
+        Order order1 = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.ACCEPTED);
-        Order order2 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 2, LocalDateTime.now(),
+        Order order2 = new DeliveryOrder(new ArrayList<>(), "", 2, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.ACCEPTED);
-        Order order3 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 3, LocalDateTime.now(),
+        Order order3 = new DeliveryOrder(new ArrayList<>(), "", 3, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.PENDING);
-        driver.addOrders(order1);
-        driver.addOrders(order2);
-        driver.addOrders(order3);
+        driver.addOrder(order1);
+        driver.addOrder(order2);
+        driver.addOrder(order3);
 
 
         String expected = "Order 1: ACCEPTED, Order 2: ACCEPTED, Order 3: PENDING";
@@ -80,14 +66,14 @@ public class DriverTest {
     @Test
     public void addOrdersTest() {
         Driver driver = new Driver("Bob");
-        Order order1 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(),
+        Order order1 = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.ACCEPTED);
-        Order order2 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 2, LocalDateTime.now(),
+        Order order2 = new DeliveryOrder(new ArrayList<>(), "", 2, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.ACCEPTED);
-        Order order3 = new DeliveryOrder(new ArrayList<>(), new Customer(""), 3, LocalDateTime.now(),
+        Order order3 = new DeliveryOrder(new ArrayList<>(), "", 3, LocalDateTime.now(),
                 "", driver, DeliveryOrder.OrderStatus.REFUSED);
-        driver.addOrders(order1);
-        driver.addOrders(order2);
+        driver.addOrder(order1);
+        driver.addOrder(order2);
 
         List<Order> expected = List.of(order1, order2);
         List<Order> result = driver.getOrders();

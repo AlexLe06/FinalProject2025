@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Order implements Comparable<Order> {
     private List<Food> foods;
-    private Customer customer;
+    private String customerName;
     private int orderId;
     private LocalDateTime date;
     private String orderType;
@@ -14,21 +14,30 @@ public abstract class Order implements Comparable<Order> {
 
     private static int nextId = 1;
 
+    public Order(List<Food> foods, String customerName, int orderId, LocalDateTime date, String orderType) { //for driver
+        this.foods = foods;
+        this.customerName = customerName;
+        this.orderId = orderId;
+        this.date = date;
+        this.orderType = orderType;
+    }
+
     public Order(Orderable operator) {
         this.foods = new ArrayList<>();
-        this.customer = new Customer("");
+        this.customerName = "";
         this.orderId = nextId++;
         this.date = LocalDateTime.now();
         this.orderType = "";
         this.operator = operator;
     }
 
-    public Order(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
+    public Order(List<Food> foods, String customerName, int orderId, LocalDateTime date, String orderType, Orderable operator) {
         this.foods = foods;
-        this.customer = customer;
+        this.customerName = customerName;
         this.orderId = orderId;
         this.date = date;
         this.orderType = orderType;
+        this.operator = operator;
     }
 
     /**
@@ -55,6 +64,17 @@ public abstract class Order implements Comparable<Order> {
         return this.orderId - o.orderId;
     }
 
+    @Override
+    public String toString() {
+        String str = "";
+
+        for (Food food : this.getFoods()) {
+            str += food.getName() + ", ";
+        }
+
+        return str;
+    }
+
     public List<Food> getFoods() {
         return foods;
     }
@@ -79,12 +99,12 @@ public abstract class Order implements Comparable<Order> {
         this.date = date;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public static int getNextId() {

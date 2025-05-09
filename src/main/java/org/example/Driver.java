@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Driver extends User implements Orderable {
+public class Driver extends User {
     private boolean availability;
     private List<Order> orders;
 
@@ -27,40 +27,32 @@ public class Driver extends User implements Orderable {
     }
 
     /**
-     * add order to the accepted orders of the driver
+     * add order to the completed orders of the driver
      * @param order the input order
      */
-    public void addOrders(Order order) {
+    public void addOrder(Order order) {
         getOrders().add(order);
     }
 
     /**
-     * allows the driver to view the orders he has
+     * allows the driver to view the orders he has that are pending
      * @return a string of all orders
      */
     public String viewOrders() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         //TODO
-        return str;
+        str.append(Restaurant.orders);
+        return str.toString();
     }
 
     /**
      * manage order that driver receives
      * @param order the input object order
-     * @param accept the input boolean accept
      * @return boolean of order is accepted
      */
-    public boolean completeOrder(DeliveryOrder order, boolean accept) {
+    public boolean completedOrder(DeliveryOrder order) {
         //TODO
         return true;
-    }
-
-    /**
-     * charges the customer amount
-     */
-    @Override
-    public void charge() {
-        Customer.pay();
     }
 
     /**
@@ -69,9 +61,7 @@ public class Driver extends User implements Orderable {
      */
     @Override
     public String displayInfo() {
-        String str = "";
-        //TODO
-        return str;
+        return String.format("%s, %s, %s, %s", getName(), getAge(), getGender());
     }
 
     @Override

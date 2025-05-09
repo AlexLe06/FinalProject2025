@@ -1,17 +1,9 @@
 package org.example;
 
 public interface Orderable {
+    void createOrder(boolean isInRestaurant);
 
-    /**
-     * charges the customer the amount input
-     */
-     void createOrder(boolean isInRestaurant);
+    void addFood(Food food);
 
-    default void addFood() {
-        // TODO: call the add food from the order class
-    }
-
-    default void removeFood() {
-        // TODO: call the remove food from the order class
-    }
+    void removeFood(Food food);
 }

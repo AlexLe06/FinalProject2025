@@ -17,7 +17,7 @@ public class CustomerTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new InRestaurantOrder(foods, customer, 1, LocalDateTime.now(), "");
+        Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
         double total = order.calcPrice(order.getFoods()); //20
 
@@ -36,7 +36,7 @@ public class CustomerTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new InRestaurantOrder(foods, customer, 1, LocalDateTime.now(), "");
+        Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
         double total = order.calcPrice(order.getFoods()); //20
 

@@ -16,9 +16,9 @@ public class InRestaurantOrderTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new InRestaurantOrder(foods, new Customer(""), 1, LocalDateTime.now(), "");
+        Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        Order expected = new InRestaurantOrder(List.of(food, food1, food2), new Customer(""), 1, LocalDateTime.now(), "");
+        Order expected = new InRestaurantOrder(List.of(food, food1, food2), "", 1, LocalDateTime.now(), "");
         order.addFood(food2);
 
         Assertions.assertEquals(expected.getFoods(), order.getFoods());
@@ -34,9 +34,9 @@ public class InRestaurantOrderTest {
         foods.add(food1);
         foods.add(food2);
 
-        Order order = new InRestaurantOrder(foods, new Customer(""), 1, LocalDateTime.now(), "");
+        Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        Order expected = new InRestaurantOrder(List.of(food1, food2), new Customer(""), 1, LocalDateTime.now(), "");
+        Order expected = new InRestaurantOrder(List.of(food1, food2), "", 1, LocalDateTime.now(), "");
         order.removeFood(food);
 
         Assertions.assertEquals(expected.getFoods(), order.getFoods());
@@ -50,7 +50,7 @@ public class InRestaurantOrderTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new InRestaurantOrder(foods, new Customer(""), 1, LocalDateTime.now(), "");
+        Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
         double expected = 20;
         double result = order.calcPrice(order.getFoods());

@@ -18,9 +18,9 @@ public class DeliveryOrderTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new DeliveryOrder(foods, customer, 1, LocalDateTime.now(), "");
+        Order order = new DeliveryOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        Order expected = new DeliveryOrder(List.of(food, food1, food2), customer, 1, LocalDateTime.now(), "");
+        Order expected = new DeliveryOrder(List.of(food, food1, food2), "", 1, LocalDateTime.now(), "");
         order.addFood(food2);
 
         Assertions.assertEquals(expected.getFoods(), order.getFoods());
@@ -37,9 +37,9 @@ public class DeliveryOrderTest {
         foods.add(food1);
         foods.add(food2);
 
-        Order order = new DeliveryOrder(foods, customer, 1, LocalDateTime.now(), "");
+        Order order = new DeliveryOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        Order expected = new DeliveryOrder(List.of(food1, food2), customer, 1, LocalDateTime.now(), "");
+        Order expected = new DeliveryOrder(List.of(food1, food2), "", 1, LocalDateTime.now(), "");
         order.removeFood(food);
 
         Assertions.assertEquals(expected.getFoods(), order.getFoods());
@@ -54,7 +54,7 @@ public class DeliveryOrderTest {
         foods.add(food);
         foods.add(food1);
 
-        Order order = new DeliveryOrder(foods, customer, 1, LocalDateTime.now(), "");
+        Order order = new DeliveryOrder(foods, "", 1, LocalDateTime.now(), "");
 
         double expected = 20;
         double result = order.calcPrice(order.getFoods());
@@ -66,8 +66,8 @@ public class DeliveryOrderTest {
     public void reassignDriverTest() {
         Driver driver = new Driver("Bob");
 
-        Order expected = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(), "", driver, DeliveryOrder.OrderStatus.PENDING);
-        Order order = new DeliveryOrder(new ArrayList<>(), new Customer(""), 1, LocalDateTime.now(), "", new Driver(""), DeliveryOrder.OrderStatus.PENDING);
+        Order expected = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(), "", driver, DeliveryOrder.OrderStatus.PENDING);
+        Order order = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(), "", new Driver(""), DeliveryOrder.OrderStatus.PENDING);
 
         DeliveryOrder.reassignDriver((DeliveryOrder) order, driver);
 

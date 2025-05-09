@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class Customer extends User {
+public class Customer extends User implements Orderable{
     private double accountBalance;
     // add orderNumber?
 
@@ -30,28 +30,48 @@ public class Customer extends User {
      * makes customer pay amount charged
      */
     public void pay() {
-        //TODO: update the order time
         tempOrder.setDate(LocalDateTime.now());
-
-        // TODO: add tempOrder to the orders in customer and the restaurant
         orders.add(tempOrder);
         Restaurant.orders.add(tempOrder);
 
         // TODO: call the logData in the Restaurant class
+        Restaurant.export(false);
 
-        // cooking
-
-        // delivering
-
-        // TODO: validation, read the price from the tempOrder
-        accountBalance -= tempOrder.calcPrice(tempOrder.getFoods());
-
+        double totalPrice = tempOrder.calcPrice(tempOrder.getFoods());
+        if (accountBalance >= totalPrice) {
+            accountBalance -= totalPrice;
+        } else {
+            throw new IllegalStateException("Insufficient funds for customer: " + name);
+        }
     }
 
+    @Override
     public void createOrder(boolean isInRestaurant) {
         tempOrder = isInRestaurant
                 ? new InRestaurantOrder(this)
                 : new DeliveryOrder(this);
+    }
+
+    @Override
+    public void addFood(Food food) {
+        if (tempOrder == null) {
+            throw new IllegalStateException("Order cannot be null, it needs to be created first before adding food.");
+        }
+        if (food == null) {
+            throw new IllegalStateException("Food cannot be null.");
+        }
+        tempOrder.getFoods().add(food);
+    }
+
+    @Override
+    public void removeFood(Food food) {
+        if (tempOrder == null) {
+            throw new IllegalStateException("Order cannot be null, it needs to be created first before removing food.");
+        }
+        if (food == null) {
+            throw new IllegalStateException("Food cannot be null.");
+        }
+        tempOrder.getFoods().remove(food);
     }
 
     /**
@@ -69,9 +89,7 @@ public class Customer extends User {
      */
     @Override
     public String displayInfo() {
-        String str = "";
-        //TODO
-        return str;
+        return String.format("%s, %s, %s", getName(), getAge(), getGender());
     }
 
     @Override

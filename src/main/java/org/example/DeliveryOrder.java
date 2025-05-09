@@ -8,16 +8,21 @@ public class DeliveryOrder extends Order {
     private Driver driver;
     private OrderStatus status;
 
-    public DeliveryOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType) {
+    public DeliveryOrder(List<Food> foods, String customer, int orderId, LocalDateTime date, String orderType) {
         super(foods, customer, orderId, date, orderType);
         this.driver = new Driver("");
         this.status = OrderStatus.PENDING;
     }
 
-    public DeliveryOrder(List<Food> foods, Customer customer, int orderId, LocalDateTime date, String orderType, Driver driver, OrderStatus status) {
+    public DeliveryOrder(List<Food> foods, String customer, int orderId, LocalDateTime date, String orderType, Driver driver, OrderStatus status) {
         super(foods, customer, orderId, date, orderType);
         this.driver = driver;
         this.status = status;
+    }
+
+    public DeliveryOrder(Orderable operator) {
+        super(operator);
+        setOrderType("DeliveryOrder");
     }
 
     /**
@@ -50,7 +55,6 @@ public class DeliveryOrder extends Order {
     /**
      * exports orders into csv file and info
      */
-    @Override
     public void fileWriteOrder() {
         //TODO
     }
