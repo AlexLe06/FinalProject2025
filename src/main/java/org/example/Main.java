@@ -6,10 +6,9 @@ public class Main {
     public static void main(String[] args) {
         User worker = new Worker("Bob", 23, User.Gender.MALE);
         User worker1 = new Worker("Paul", 19, User.Gender.MALE);
-        Customer customer = new Customer("Alex", 1000);
+        Customer customer = new Customer("Alex", User.Gender.MALE, 20, 1000);
 
         Menu menu = new Menu();
-
         Food food1 = new Food(12.99, "Burger", "Main", true);
         Food food2 = new Food(5.99, "Fries", "Side", true);
         Food food3 = new Food(8.99, "Nuggets", "Main", true);

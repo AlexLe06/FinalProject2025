@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,23 +14,31 @@ public class Customer extends User implements Orderable{
     public Customer(String name) {
         super(name);
         this.accountBalance = 0;
+        this.orders = new ArrayList<>();
     }
 
     public Customer(String name, double accountBalance) {
         super(name);
         this.accountBalance = accountBalance;
+        this.orders = new ArrayList<>();
     }
 
     public Customer(String name, Gender gender, int age, double accountBalance) {
         super(name, gender, age);
         this.accountBalance = accountBalance;
+        this.orders = new ArrayList<>();
     }
 
     /**
      * makes customer pay amount charged and adds order to restaurant orders
      */
     public void pay() {
+        if (tempOrder == null) {
+            throw new IllegalStateException("No order to process.");
+        }
+
         tempOrder.setDate(LocalDateTime.now());
+        orders.add(tempOrder);
         Restaurant.orders.add(tempOrder);
 
         Restaurant.export(false);

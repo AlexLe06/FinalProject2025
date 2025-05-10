@@ -14,7 +14,6 @@ public class Restaurant {
     public static final String ordersFile = "src/main/resources/order.csv";
     public static final String completedOrdersFile = "src/main/resources/completedOrders.csv";
 
-
     public static List<Order> orders = loadOrders(ordersFile);
     public static List<Order> completedOrders = loadDeliveryOrders(completedOrdersFile);
 
@@ -35,10 +34,14 @@ public class Restaurant {
                 String[] foodNames = parts[0].split("\\|");
                 List<Food> foods = new ArrayList<>();
                 for (String foodName : foodNames) {
-                    foods.add(new Food(foodName)); //wrong because food dont have prices
+                    foods.add(new Food(foodName));
                 }
 
                 String customerName = parts[1];
+                if (customerName.isEmpty()) {
+                    customerName = "Unknown";
+                }
+
                 int orderId = Integer.parseInt(parts[2]);
                 LocalDateTime date = LocalDateTime.parse(parts[3]);
                 String orderType = parts[4];
@@ -69,10 +72,14 @@ public class Restaurant {
                 String[] foodNames = parts[0].split("\\|");
                 List<Food> foods = new ArrayList<>();
                 for (String foodName : foodNames) {
-                    foods.add(new Food(foodName)); //wrong because food dont have prices
+                    foods.add(new Food(foodName));
                 }
 
                 String customerName = parts[1];
+                if (customerName.isEmpty()) {
+                    customerName = "Unknown";
+                }
+
                 int orderId = Integer.parseInt(parts[2]);
                 LocalDateTime date = LocalDateTime.parse(parts[3]);
                 String orderType = parts[4];

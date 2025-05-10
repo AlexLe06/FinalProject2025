@@ -111,4 +111,23 @@ public class MenuTest {
 
         Assertions.assertEquals(expected, result);
     }
+
+    @Test
+    public void searchSpecificFoodTest() {
+        Food food1 = new Food(15, "Burger", "Burger", true);
+        Food food2 = new Food(22, "Cheeseburger", "Burger", true);
+        Food food3 = new Food(10, "Hotdog", "Sandwich", true);
+        List<Food> foods = new ArrayList<>();
+        foods.add(food1);
+        foods.add(food2);
+        foods.add(food3);
+
+        Menu menu = new Menu();
+        menu.setFoodsList(foods);
+        String keyword = "burger";
+
+        Food result = menu.searchSpecificFood(keyword);
+
+        Assertions.assertEquals(food1, result);
+    }
 }

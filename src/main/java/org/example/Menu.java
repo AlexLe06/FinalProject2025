@@ -121,6 +121,25 @@ public class Menu {
                 .toList();
     }
 
+    /**
+     * searches food that contains the keyword in its name
+     * @param foodName the input keyword
+     * @return object food that contains keyword from menu
+     */
+    public Food searchSpecificFood(String foodName) {
+        if (foodName == null) {
+            return null;
+        }
+
+        for (Food specificFood : foodsList) {
+            if (specificFood.getName().equalsIgnoreCase(foodName)) {
+                return specificFood;
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
