@@ -19,10 +19,11 @@ public class CustomerTest {
 
         Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        double total = order.calcPrice(order.getFoods()); //20
+        customer.setTempOrder(order);
 
+        customer.pay();
         double expected = 980;
-        double result = customer.getAccountBalance() - total;
+        double result = customer.getAccountBalance();
 
         Assertions.assertEquals(expected, result);
     }
@@ -38,12 +39,9 @@ public class CustomerTest {
 
         Order order = new InRestaurantOrder(foods, "", 1, LocalDateTime.now(), "");
 
-        double total = order.calcPrice(order.getFoods()); //20
+        customer.setTempOrder(order);
 
-        double expected = 10;
-        double result = customer.getAccountBalance() - total;
-
-        Assertions.assertEquals(expected, result);
+        Assertions.assertThrows(IllegalStateException.class, () -> customer.pay());
     }
 
     @Test
@@ -74,7 +72,18 @@ public class CustomerTest {
     }
 
     @Test
-    public void createOrderTest() {
+    public void createOrderTest_InRestaurant() {
+        Customer customer = new Customer("John");
+        customer.createOrder(true);
 
+        Assertions.assertTrue(customer.getTempOrder() instanceof InRestaurantOrder);
+    }
+
+    @Test
+    public void createOrderTest_Delivery() {
+        Customer customer = new Customer("John");
+        customer.createOrder(false);
+
+        Assertions.assertTrue(customer.getTempOrder() instanceof DeliveryOrder);
     }
 }

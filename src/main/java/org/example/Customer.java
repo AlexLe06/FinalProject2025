@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public class Customer extends User implements Orderable{
     private double accountBalance;
-    // add orderNumber?
 
     private List<Order> orders;
     private Order tempOrder;
@@ -27,14 +26,12 @@ public class Customer extends User implements Orderable{
     }
 
     /**
-     * makes customer pay amount charged
+     * makes customer pay amount charged and adds order to restaurant orders
      */
     public void pay() {
         tempOrder.setDate(LocalDateTime.now());
-        orders.add(tempOrder);
         Restaurant.orders.add(tempOrder);
 
-        // TODO: call the logData in the Restaurant class
         Restaurant.export(false);
 
         double totalPrice = tempOrder.calcPrice(tempOrder.getFoods());
@@ -45,6 +42,10 @@ public class Customer extends User implements Orderable{
         }
     }
 
+    /**
+     * creates temporary order
+     * @param isInRestaurant boolean if it is in restaurant order
+     */
     @Override
     public void createOrder(boolean isInRestaurant) {
         tempOrder = isInRestaurant
@@ -52,6 +53,10 @@ public class Customer extends User implements Orderable{
                 : new DeliveryOrder(this);
     }
 
+    /**
+     * adds food in customer's order
+     * @param food the input object food
+     */
     @Override
     public void addFoodOrder(Food food) {
         if (tempOrder == null) {
@@ -63,6 +68,10 @@ public class Customer extends User implements Orderable{
         tempOrder.getFoods().add(food);
     }
 
+    /**
+     * removes food from customer's order
+     * @param food the input object food
+     */
     @Override
     public void removeFoodOrder(Food food) {
         if (tempOrder == null) {
@@ -73,7 +82,6 @@ public class Customer extends User implements Orderable{
         }
         tempOrder.getFoods().remove(food);
     }
-
     /**
      * allows customer to view menu
      * @param menu the input menu
@@ -98,18 +106,20 @@ public class Customer extends User implements Orderable{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Customer customer = (Customer) o;
-        return Double.compare(accountBalance, customer.accountBalance) == 0;
+        return Double.compare(accountBalance, customer.accountBalance) == 0 && Objects.equals(orders, customer.orders) && Objects.equals(tempOrder, customer.tempOrder);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), accountBalance);
+        return Objects.hash(super.hashCode(), accountBalance, orders, tempOrder);
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "accountBalance=" + accountBalance +
+                "tempOrder=" + tempOrder +
+                ", accountBalance=" + accountBalance +
+                ", orders=" + orders +
                 '}';
     }
 

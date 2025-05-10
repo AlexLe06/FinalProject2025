@@ -94,8 +94,7 @@ public class Food {
 
         @Override
         public int compare(Food o1, Food o2) {
-            //TODO
-            return 0;
+            return (int) (o1.getPrice() - o2.getPrice());
         }
     }
 }

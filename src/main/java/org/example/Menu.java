@@ -69,9 +69,9 @@ public class Menu {
     }
 
     /**
-     * get string of the menu
+     * get string of the menu with only available foods
      * @param menu the input menu
-     * @return string of menu
+     * @return string of menu with only available foods
      */
     public static String displayMenuCustomer(Menu menu) { //junit
         StringBuilder str = new StringBuilder();
@@ -87,11 +87,11 @@ public class Menu {
     }
 
     /**
-     * get string of the menu
+     * get string of the menu of a certain category
      * @param menu the input menu
-     * @return
+     * @return string of menu of a certain category
      */
-    public String displayMenuCategory(Menu menu, String keyword) {
+    public static String displayMenuCategory(Menu menu, String keyword) {
         StringBuilder str = new StringBuilder();
         String titleCaseKeyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
 
@@ -99,7 +99,7 @@ public class Menu {
         for (Food food : menu.getFoodsList()) {
             if (food.getCategory().equalsIgnoreCase(keyword)) {
                 str.append(food.getName() + ", ");
-                str.append(food.getPrice() + "$\n");
+                str.append(String.format("%.2f$\n", food.getPrice()));
             }
         }
 

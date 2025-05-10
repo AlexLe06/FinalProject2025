@@ -63,13 +63,13 @@ public class DeliveryOrderTest {
 
     @Test
     public void reassignDriverTest() {
-        Driver driver = new Driver("Bob");
+        String driver = "Bob";
 
         Order expected = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(), "", driver, DeliveryOrder.OrderStatus.PENDING);
-        Order order = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(), "", new Driver(""), DeliveryOrder.OrderStatus.PENDING);
+        Order order = new DeliveryOrder(new ArrayList<>(), "", 1, LocalDateTime.now(), "", driver, DeliveryOrder.OrderStatus.PENDING);
 
         DeliveryOrder.reassignDriver((DeliveryOrder) order, driver);
 
-        Assertions.assertEquals(((DeliveryOrder) expected).getDriver(), ((DeliveryOrder) expected).getDriver());
+        Assertions.assertEquals(((DeliveryOrder) expected).getDriverName(), ((DeliveryOrder) order).getDriverName());
     }
 }

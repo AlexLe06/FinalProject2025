@@ -24,11 +24,9 @@ public class Main {
         menu.addFood(food5);
         menu.addFood(food6);
 
-//        worker.charge(customer, 200);
-//        System.out.println(customer.getAccountBalance());
-        customer.viewMenu(menu);
-
-        System.out.println(worker.displayInfo());
-        System.out.println(worker1.displayInfo());
+        customer.createOrder(true);
+        customer.addFoodOrder(food1);
+        customer.addFoodOrder(food2);
+        customer.pay();
     }
 }

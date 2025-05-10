@@ -3,6 +3,7 @@ package org.example;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Order implements Comparable<Order> {
     private List<Food> foods;
@@ -62,6 +63,19 @@ public abstract class Order implements Comparable<Order> {
     @Override
     public int compareTo(Order o) {
         return this.orderId - o.orderId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return orderId == order.orderId && Objects.equals(foods, order.foods) && Objects.equals(customerName, order.customerName) && Objects.equals(date, order.date) && Objects.equals(orderType, order.orderType) && Objects.equals(operator, order.operator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(foods, customerName, orderId, date, orderType, operator);
     }
 
     @Override

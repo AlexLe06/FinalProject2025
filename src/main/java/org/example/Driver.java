@@ -6,63 +6,61 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Driver extends User {
-    private boolean availability;
     private List<Order> orders;
 
     public Driver(String name) {
         super(name);
-        this.availability = true;
         this.orders = new ArrayList<>();
     }
 
     public Driver(String name, Gender gender, int age) {
         super(name, gender, age);
-        this.availability = true;
         this.orders = new ArrayList<>();
     }
 
-    public Driver(String name, Gender gender, int age, boolean availability, List<Order> orders) {
-        super(name, gender, age);
-        this.availability = availability;
-        this.orders = orders;
-    }
-
     /**
-     * add order to the completed orders of the driver
+     * add pending delivery order to orders
      * @param order the input order
      */
     public void addOrder(Order order) {
-        getOrders().add(order);
+        if (order instanceof DeliveryOrder) {
+            getOrders().add(order);
+        } else {
+            throw new IllegalArgumentException("Only DeliveryOrder instances can be added.");
+        }
     }
 
     /**
      * allows the driver to view the orders he has that are pending
-     *
      * @return a string of all orders
      */
-    public StringBuilder viewOrders() {
+    public String viewOrders() {
         StringBuilder str = new StringBuilder();
 
         for (Order order : orders) {
-            str.append("Order " + order.getOrderId());
+            str.append("Order " + order.getOrderId() + ",");
             str.append(order.getFoods().stream()
                     .map(Food::getName)
-                    .collect(Collectors.joining(" | ")) + "\n");
-            str.append(order.getCustomerName() + "\n");
+                    .collect(Collectors.joining(" | ")) + ",");
+            str.append(order.getCustomerName() + ",");
             str.append(order.calcPrice(order.getFoods())+ "\n");
         }
 
-        return str;
+        return str.toString();
     }
 
     /**
-     * manage order that driver receives
-     * @param order the input object order
-     * @return boolean of order is accepted
+     * sets order to complete when done with it
+     * @param order the input delivery order
      */
-    public boolean completedOrder(DeliveryOrder order) {
-        //TODO
-        return true;
+    public void completeOrder(DeliveryOrder order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null");
+        }
+        order.setStatus(DeliveryOrder.OrderStatus.COMPLETED);
+
+        Restaurant.completedOrders.add(order);
+        Restaurant.exportCompletedOrders();
     }
 
     /**
@@ -80,20 +78,22 @@ public class Driver extends User {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Driver driver = (Driver) o;
-        return availability == driver.availability && Objects.equals(orders, driver.orders);
+        return Objects.equals(orders, driver.orders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), availability, orders);
+        return Objects.hash(super.hashCode(), orders);
     }
 
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "Driver{" +
-                "availability=" + availability +
-                ", acceptedOrders=" + orders +
+                "orders=" + orders +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                ", age=" + age +
+                ", gender=" + gender +
                 '}';
     }
 
@@ -103,17 +103,5 @@ public class Driver extends User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
-
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-
-    public static enum OrderStatus {
-        DELIVERING, COMPLETED
     }
 }
